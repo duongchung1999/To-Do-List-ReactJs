@@ -6,16 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter,  RouterProvider,} from "react-router-dom";
 import StickyNote from './Component/StickyNote/StickyNote';
 import ViewerWebsite from './function/viewWebsite/ViewerWebsite';
+import ViewerYoutube from './Component/viewerYoutube/ViewerYoutube';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <StickyNote />,
   },
   {
-    path: "/stickyNote",
-    element: <StickyNote />,
+    path: "/convertText",
+    element: <App />,
   },
   {
     path: "/hanzi",
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/jiaocheng",
     element: <ViewerWebsite title="淨空法師嘉言路" path="https://book.bfnn.org/books/0486.htm"/>,
+  },
+  {
+    path: "/youtube",
+    element: <ViewerYoutube title="Youtube" path="https://book.bfnn.org/books/0486.htm"/>,
   },
  
 ]);

@@ -5,6 +5,7 @@ import imageHanziDic from '../../assets/image/ic_logo.png';
 import imageConvert from '../../assets/image/convert.jpg';
 import imagePdf from '../../assets/image/pdf1.png';
 import imageStickyNote from '../../assets/image/book2.jpg';
+import imageYoutube from '../../assets/image/youtube.png';
 import { NavLink } from "react-router-dom";
 
 class Header extends Component {
@@ -12,7 +13,8 @@ class Header extends Component {
         return (
         <div className={this.props.isMenuOnClick?"header js-header":"hidden"}>
           <ul id="nav">
-            <UlComponent link="/" image = {imageHome} Name = "Home"/>
+            <UlComponent link="/" image = {imageStickyNote} Name = "Home"/>
+            <UlComponent link="/convertText" image = {imageHome} Name = "Convert Text"/>
             <UlComponent link="/jiaocheng" image = {imageBook1} Name = "教程"/>
             <UlComponent link="/nhidonghocphat" 
             image = "https://ava-grp-talk.zadn.vn/2/b/e/8/2/360/056059ce9cbe0aa7b902032495aef1c6.jpg" 
@@ -20,7 +22,8 @@ class Header extends Component {
             <UlComponent link="/hanzi" image = {imageHanziDic} Name = "Hanzi Dict"/>
             <UlComponent link="/tudiendich" image = {imageConvert} Name = "Convert"/>
             <UlComponent link="/pdfGiaotrinh" image = {imagePdf} Name = "PDF"/>
-            <UlComponent link="/stickyNote" image = {imageStickyNote} Name = "Sticky Note"/>
+            <UlComponent link="/youtube" image = {imageYoutube} Name = "Youtube"/>
+            
             
           </ul>
       </div>
