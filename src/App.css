@@ -12,7 +12,7 @@ html {
   font-family: Arial, Helvetica, sans-serif;
 
 }
-.Ap p{
+.App{
   display: flex;
   font-family: cursive;
   height: 100%;
@@ -79,13 +79,30 @@ html {
   background-color: #ccc;
 }
 
+.active{
+  color: #000;
+  background-color: #aaaaaa;
+}
+
+.btnConvert{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  /* align-items: center; */
+  justify-content: center;
+  align-items:flex-start;
+}
 
 
 
-.content,.footer #content{
+.content,.footer, #content{
   margin-left: 10px;
   padding: 0 10px;
   /* margin-left: 230px; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #content{
   /* margin-top: 46px; */
@@ -105,12 +122,13 @@ html {
 .ti-angle-double-right{
   display: none;
 }
-.container {
+.container1 {
   display: flex;
+  padding-top: 10px;
   justify-content: space-between;
   align-items:flex-start;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 ;
   /* padding: 20px; */
 }
 #fileList,#add-section,.buttoncss{
@@ -211,7 +229,7 @@ textarea {
 }
 .left-textbox,
 .right-textbox {
-  width: 50%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -449,4 +467,9 @@ h1{
       opacity: 1;
       transform: translateY(0px);
   }
+}
+
+.btnMenuSide{
+  display: flex;
+  width: 100%;
 }

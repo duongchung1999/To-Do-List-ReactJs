@@ -50,7 +50,7 @@ class StickyNote extends Component {
         });
     }
     menuOnClick = () =>{
-        console.log(123);
+        // console.log(123);
         this.setState(prevState =>({
             isMenuOnClick : !prevState.isMenuOnClick
         }))

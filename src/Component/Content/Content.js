@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReplaceValue from '../../function/ReplaceValue';
 import { getConvertText } from '../../function/Firebase';
 import { getContentFromFireBase } from '../../function/Firebase';
+import { Button } from 'react-bootstrap';
 
 class Content extends Component {
     textConvert =  () =>{
@@ -67,41 +68,133 @@ class Content extends Component {
         var pinyinText = document.querySelector('.pinyin-left');
         var pinyinContent = pinyinText.value;
         var pinyinResult = document.querySelector('.pinyin-right');
-        pinyinResult.value = ReplaceValue(pinyinContent);
+       
+        var newText = ReplaceValue(pinyinContent);
+        // begin getcontentFromFirebase
+        var convertPath = "/users/user1/kecheng/convert/convert"
+        getContentFromFireBase(convertPath)
+        .then((data) => {
+            if (data !== null) {
+                var sentences = data.split('\n');
+                console.log(sentences);
+                sentences.forEach(st => {
+                   console.log("sentences = " + st);
+                   var convert = st.split('=');
+                   if (convert.length === 2) {
+                       var regex = new RegExp(convert[0].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g');
+                       console.log(convert[0], convert[1]);
+                       newText = newText.replace(regex, convert[1]);
+                       console.log(newText);
+                       pinyinResult.value = newText;
+                   }
+               });
+            }
+            
+        })
+        .catch((error) => {
+            console.error("Có lỗi xảy ra:", error);
+        });
+    // end getcontentFromFirebase
+
+    pinyinResult.value = newText;
+    }
+    convertFromFirebase = (text) =>{
+        // begin getcontentFromFirebase
+        var convertPath = "/users/user1/kecheng/convert/convert"
+        getContentFromFireBase(convertPath)
+        .then((data) => {
+            if (data !== null) {
+                var sentences = data.split('\n');
+                console.log(sentences);
+                sentences.forEach(st => {
+                    console.log("sentences = " + st);
+                    var convert = st.split('=');
+                    if (convert.length === 2) {
+                        var regex = new RegExp(convert[0].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g');
+                        console.log(convert[0], convert[1]);
+                        text = text.replace(regex, convert[1]);
+                        return text
+                    }
+                });
+            }
+            
+        })
+        .catch((error) => {
+            console.error("Có lỗi xảy ra:", error);
+            return "convert errors";
+        });
+        // end getcontentFromFirebase
     }
     render() {
         return (
             <div id="content">
-                 <i class="menu-icon fa-solid fa-bars" 
-                        onClick={this.viewTaskbar}></i>
-                <div className="container">
-                    <textarea
-                    className="left-textbox content-left text-box-height"
-                    placeholder="Nội dung cần chuyển đổi"
-                    defaultValue={""}
-                    />
-                    <button id="btn-content" onClick={this.textConvert}>Text Convert</button>
-                    <button id="btn-save">
-                    <i className="nav-icon ti-download" />
-                    </button>
-                    <textarea
-                    className="right-textbox content-right text-box-height"
-                    placeholder="Nội dung sau khi chuyển đổi"
-                    defaultValue={""}
-                    />
+                <div className='btnMenuSide'>
+                <Button variant="danger" onClick={this.props.menuOnClick}>
+                            <i class="fa-solid fa-bars" ></i>
+                            </Button>
+                <h2>Convert Text</h2>
                 </div>
-                <div className="container">
-                    <textarea
-                    className="left-textbox pinyin-left text-box-height"
-                    placeholder="Pinyin cần chuyển đổi"
-                    defaultValue={""}
-                    />
-                    <button id="btn-pinyin" onClick={this.pinyinConvert}>Pinyin Convert</button>
-                    <textarea
-                    className="right-textbox pinyin-right text-box-height"
-                    placeholder="Pinyin sau khi chuyển đổi"
-                    defaultValue={""}
-                    />
+                
+                <div className="container1">
+                    <div className='row' style={{width:'100%'}}>
+                        <div className='col-5' style={{padding:'0'}}>
+                            <textarea
+                            className="left-textbox content-left text-box-height"
+                            placeholder="Nội dung cần chuyển đổi"
+                            defaultValue={""}
+                            />
+                        </div>
+
+                        <div className='col-2' style={{padding:'0'}}>
+                            <div className='btnConvert'>
+                            {/* <button id="btn-content" onClick={this.textConvert}>Text Convert</button> */}
+                            <Button id="btn-content" variant="warning" onClick={this.textConvert}>
+                            Text Convert
+                            </Button>
+                        {/* <button id="btn-save">
+                        <i className="nav-icon ti-download" />
+                        </button> */}
+                            </div>
+                            
+                        </div>
+
+                        <div className='col-5' style={{padding:'0'}}>
+                            <textarea
+                            className="right-textbox content-right text-box-height"
+                            placeholder="Nội dung sau khi chuyển đổi"
+                            defaultValue={""}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="container1">
+                    <div className='row' style={{width:'100%'}}>
+                        <div className='col-5' style={{padding:'0'}}>
+                            <textarea
+                            className="left-textbox pinyin-left text-box-height"
+                            placeholder="Pinyin cần chuyển đổi"
+                            defaultValue={""}
+                            />
+                        </div>
+
+                        <div className='col-2' style={{padding:'0'}}>
+                            <div className='btnConvert'>
+                            <Button id="btn-pinyin" variant="warning"  onClick={this.pinyinConvert}>
+                            Pinyin Convert
+                            </Button>
+                            </div>
+                            
+                        </div>
+
+                        <div className='col-5' style={{padding:'0'}}>
+                            <textarea
+                            className="right-textbox pinyin-right text-box-height"
+                            placeholder="Pinyin sau khi chuyển đổi"
+                            defaultValue={""}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         );

@@ -67,7 +67,7 @@ class Container extends Component {
                             <div className="add-section-note">Lưu</div>
                         </button>
                     </div>
-                    <div className="container">
+                    <div className="container1">
                         {/* <button class="btn-save" id="btn-left" ><i class="nav-icon ti-download"></i></button> */}
                         <textarea
                         className="left-textbox content-left richtext"
