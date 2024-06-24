@@ -49,17 +49,22 @@ class ViewerYoutube extends Component {
         });
         // end getcontentFromFirebase
     }
-    showLink = () =>{
-        console.log(23)
-        if(this.state.youtubeLink){
-            this.state.youtubeLink.map(youtube =>{
+    showLink = () => {
+        if (this.state.youtubeLink.length > 0) {
+            return this.state.youtubeLink.map((youtube, index) => {
                 var yt = youtube.split('=');
-                console.log("yt ="+yt[0])
-                return(
-                    <ViewerYoutube title={yt[0]} link={yt[1]}/>
-                )
-            })
-            
+                const title = yt[0] || `Video ${index + 1}`;
+                const videoId = yt[2] ? yt[2].split('&')[0] : "123";
+                const embedLink = `https://www.youtube.com/embed/${videoId}`;
+                console.log(videoId);
+                // const link = embedLink;
+                
+                return (
+                    <YoutubeViewer key={index} title={title} link={embedLink} />
+                );
+            });
+        } else {
+            return null;
         }
     }
 
@@ -74,17 +79,8 @@ class ViewerYoutube extends Component {
                                 </Button>
                     <h2>{this.props.title}</h2>
                 </div>
-               <div className='viewerYoutube row'>
-               {/* <iframe 
-                            width="560" 
-                            height="315" 
-                            src="https://www.youtube.com/embed/S-dUsy_clo4?start=573" 
-                            title="YouTube video player" 
-                            frameBorder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowFullScreen
-                        ></iframe> */}
-                      {this.showLink()}
+               <div className='viewerYoutube row' style={{width:'100%'}}>
+                 {this.showLink()}
 
 
                </div>
@@ -99,17 +95,17 @@ export default ViewerYoutube;
 
 function YoutubeViewer(props){
     return(
-        <div className='youtube-Viewer col-3'>
+        <div className='youtube-Viewer col-4'>
             <iframe 
-                width="560" 
-                height="315" 
+                width="100%" 
+                height="100%" 
                 src={props.link}
                 title="YouTube video player" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 allowFullScreen
             ></iframe>
-            <p>props.title</p>
+            <p>{props.title}</p>
         </div>
         
     )
