@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Header from '../Header/Header';
 import { Button } from 'react-bootstrap';
 import { getContentFromFireBase } from '../../function/Firebase';
+import YoutubeShow from '../../function/youtubeShow/YoutubeShow';
 
 class ViewerYoutube extends Component {
     constructor(props) {
@@ -9,7 +10,12 @@ class ViewerYoutube extends Component {
         this.state = {
             isMenuOnClick: true,
             youtubeLink: [],
+            iframeDimensions: { width: 0, height: 0 },
+            youtubeHeight:0,
+            inputLink:'',
+            openLink:'',
         };
+        this.iframeRef = createRef();
     }
       menuOnClick = () =>{
         // console.log(123);
@@ -17,8 +23,27 @@ class ViewerYoutube extends Component {
             isMenuOnClick : !prevState.isMenuOnClick
         }))
     }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateIframeDimensions);
+    }
     componentDidMount(){
         this.getLinkFromFirebase();
+        // this.updateIframeDimensions();
+        window.addEventListener('resize', this.updateIframeDimensions);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.youtubeLink !== this.state.youtubeLink) {
+            this.updateIframeDimensions();
+        }
+    }
+    updateIframeDimensions = () => {
+        if (this.iframeRef.current) {
+            const width = this.iframeRef.current.offsetWidth;
+            const height = this.iframeRef.current.offsetHeight;
+            console.log(width)
+            this.setState({ iframeDimensions: { width, height } ,
+                youtubeHeight:width*9/16});
+        }
     }
 
     getLinkFromFirebase = () =>{
@@ -28,18 +53,9 @@ class ViewerYoutube extends Component {
         .then((data) => {
             if (data !== null) {
                 var sentences = data.split('\n');
-                console.log(sentences);
                 if(sentences){
                     this.setState({youtubeLink:sentences})
                 }
-                // sentences.forEach(st => {
-                //     console.log("youtube = " + st);
-                   
-                //     var convert = st.split('=');
-                //     if (convert.length === 2) {
-                        
-                //     }
-                // });
             }
             
         })
@@ -56,15 +72,36 @@ class ViewerYoutube extends Component {
                 const title = yt[0] || `Video ${index + 1}`;
                 const videoId = yt[2] ? yt[2].split('&')[0] : "123";
                 const embedLink = `https://www.youtube.com/embed/${videoId}`;
-                console.log(videoId);
+                // console.log(videoId);
                 // const link = embedLink;
                 
                 return (
-                    <YoutubeViewer key={index} title={title} link={embedLink} />
+                    <YoutubeViewer 
+                        key={index} 
+                        title={title} 
+                        link={embedLink} 
+                        height={this.state.youtubeHeight?`${this.state.youtubeHeight}`:"100%"}
+                        iframeRef={this.iframeRef}
+                        />
                 );
             });
         } else {
             return null;
+        }
+    }
+
+    handleInputChange = (e) => {
+        this.setState({ inputLink: e.target.value });
+    }
+
+    openVideo = () => {
+        const { inputLink } = this.state;
+        const videoId = inputLink.split('v=')[1]?.split('&')[0];
+        console.log(videoId)
+        if (videoId) {
+            const embedLink = `https://www.youtube.com/embed/${videoId}`;
+            this.setState({ openLink: embedLink });
+            console.log(embedLink)
         }
     }
 
@@ -81,9 +118,31 @@ class ViewerYoutube extends Component {
                 </div>
                <div className='viewerYoutube row' style={{width:'100%'}}>
                  {this.showLink()}
-
-
                </div>
+            
+                <div className='openLink_container'>
+                    <div className="form-group">
+                        <label htmlFor="" />
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="youtubeLinkInput"
+                            id="youtubeLinkInput"
+                            aria-describedby="helpId"
+                            placeholder="Youtube Link"
+                            value={this.state.inputLink}
+                            onChange={this.handleInputChange}
+                        />
+                        <Button variant="info" onClick={this.openVideo}>
+                            Open
+                            <i class="fa-brands fa-youtube"></i>
+                        </Button>
+                    </div>
+                    <YoutubeShow link={this.state.openLink?this.state.openLink:"null"}
+                    height={this.state.youtubeHeight ? `${this.state.youtubeHeight}` : "100%"}
+                    />
+                </div>
+               
             </div>
             
         </div>
@@ -96,16 +155,20 @@ export default ViewerYoutube;
 function YoutubeViewer(props){
     return(
         <div className='youtube-Viewer col-4'>
+            <div className='youtube-Viewer-show'>
             <iframe 
-                width="100%" 
-                height="100%" 
+                // width="100%"
+                ref={props.iframeRef}
+                height={props.height}
                 src={props.link}
                 title="YouTube video player" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 allowFullScreen
             ></iframe>
+            </div>
             <p>{props.title}</p>
+            
         </div>
         
     )

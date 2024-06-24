@@ -7,6 +7,7 @@ import {createBrowserRouter,  RouterProvider,} from "react-router-dom";
 import StickyNote from './Component/StickyNote/StickyNote';
 import ViewerWebsite from './function/viewWebsite/ViewerWebsite';
 import ViewerYoutube from './Component/viewerYoutube/ViewerYoutube';
+import Login from './Component/login/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/youtube",
     element: <ViewerYoutube title="Youtube" path="https://book.bfnn.org/books/0486.htm"/>,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
  
 ]);
