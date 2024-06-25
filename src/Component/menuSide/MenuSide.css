@@ -1,0 +1,102 @@
+.menuSide{
+    padding-top: 56px;
+    color: rgba(255, 255, 255, 0.5);
+    
+}
+.sb-sidenav{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 230px;
+    flex-wrap: nowrap;
+}
+.menuSide-item{
+    height: 100%;
+}
+.menuSide-nav{
+    display: flex;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    list-style-type: none;
+    padding: 0;
+}
+.menuSide-nav li{
+    height: 50px;
+    display: flex;
+    color: rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;
+    justify-items: center;
+    align-items: center;
+    /* text-align: center; */
+    max-width: 100%;
+}
+/* .menuSide-nav li a{
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.5);
+} */
+
+.menuSide-nav li .nav-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px; /* Có thể điều chỉnh padding tùy thích */
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    
+}
+
+.menuSide-nav li a:hover
+ { 
+    /* .menuSide-nav li .nav-link.active */
+    color: rgba(255, 255, 255, 1);
+    background-color: #363b3f ;
+}
+
+.menuSide-nav li .nav-link.active{
+    background-color: #495158 ;
+    color: rgba(255, 255, 255, 1);
+    /* font-size: 16px; */
+}
+
+.nav-icon  {
+    padding: 0 10px;
+    width:  15px;
+}
+.menuSide-footer{
+    background-color: #343a40;
+    padding: 12px;
+    bottom: 0;
+    padding-bottom: 20px;
+    margin: 0;
+}
+.menuSide .menuSide-2nd{
+    /* display: none; */
+    /* display: none;   */
+    /* background-color: #495158; */
+    /* position: absolute; */
+    margin-top: 16px;
+    margin-left: -10px;
+    width: 230px;
+    left: 0;
+    padding-left: 24px;
+    flex-direction: column;
+}
+.menuSide .menuSide-it-asset:hover{
+    height: auto;
+}
+.menuSide .menuSide-it-asset:hover .menuSide-2nd{
+    /* display: flex; */
+}
+
+.menuSide .menuSide-it-asset .menuSide-2nd a:hover{
+    background-color: #495158 ;
+}
+
+.menuSide .menuSide-it-asset{
+    position: relative;
+    height: auto;
+}

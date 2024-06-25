@@ -124,6 +124,35 @@ function CreateNewSection(filename){
     });
 
 };
+
+async function AddDataToFireBase(path,key,value){
+    var dataRef = ref(db, path);
+    var data ={
+        [key]:value
+    }
+    try{
+        var result= await set(dataRef, data)
+        return true;
+    }
+    catch(error) {
+        console.error("Có lỗi xảy ra:", error);
+        throw error; 
+        return false;
+    }
+}
+async function AddDataToFireBaseNoKey(path,value){
+    var dataRef = ref(db, path);
+    try{
+        var result= await set(dataRef, value)
+        return true;
+    }
+    catch(error) {
+        console.error("Có lỗi xảy ra:", error);
+        throw error; 
+        return false;
+    }
+}
+
 function DeleteSection(filename){
     var kechengPath =   `/users/user1/kecheng/${filename}`
     var translatePath =   `/users/user1/contents/${filename}`
@@ -319,6 +348,8 @@ export { ShowNewFile };
 export {loadSelectedFile};
 export {getConvertText};
 export {getContentFromFireBase};
+export {AddDataToFireBase}
+export {AddDataToFireBaseNoKey}
 
 
 

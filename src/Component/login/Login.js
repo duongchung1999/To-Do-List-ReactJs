@@ -5,6 +5,9 @@ import { Navigate  } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import imgRen from '../../assets/image/Nhân.png'
+import mp3File from '../../assets/mp3/guzheng2.mp3'
+import imgPhat from '../../assets/image/佛3.png'
+import { getContentFromFireBase } from '../../function/Firebase';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 class Login extends Component {
@@ -23,7 +26,20 @@ class Login extends Component {
         if (token) {
             this.setState({ user: true });
         }
+        window.addEventListener('click', this.playAudio);
     }
+    // componentWillUnmount() {
+    //     // Remove the event listener when the component unmounts
+    //     window.removeEventListener('click', this.playAudio);
+    // }
+
+    playAudio = () => {
+        if (this.audioRef) {
+            this.audioRef.play();
+            // Remove the event listener after audio starts playing
+            window.removeEventListener('click', this.playAudio);
+        }
+    };
     setWithExpiry(key, value, ttl) {
         const now = new Date()
         const item = {
@@ -55,63 +71,35 @@ class Login extends Component {
         const formData = new FormData(event.target);
         const username = formData.get('username');
         const password = formData.get('password');
-        const requestBody = {
-            email: username,
-            password: password,
-        };
+        const getUserNamePath = `/users/account/${username}/username`
+        const getPasswordPath = `/users/account/${username}/password`
+        const getNamePath = `/users/account/${username}/name`
+        const getEmailPath = `/users/account/${username}/email`
+        const getRolePath = `/users/account/${username}/role`
 
         try {
-            const response = await fetch(apiUrl+'/api/Account/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-            });
-            const responseData = await response.json(); // Giải mã JSON từ phản hồi
-                // console.log(responseData.errors.Email[0]);
-                // console.log(responseData.token);
-                let user = responseData.flag;
-                
-                
-                if (response.ok) {
-                    // console.log(123);
-                    let user = responseData.flag;
-                    if (user) {
-                        // localStorage.setItem('token', responseData.token);
-                        // localStorage.setItem('name', responseData.name);
-                        // localStorage.setItem('role', responseData.role);
-
-                        this.setWithExpiry('token', responseData.token, 300 * 60 * 1000)
-                        this.setWithExpiry('name', responseData.name, 300 * 60 * 1000)
-                        this.setWithExpiry('role', responseData.role, 300 * 60 * 1000)
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "Login Success",
-                            showConfirmButton: false,
-                            timer: 1500
-                          });
-                        this.setState({ user });
-                        // this.setState({ jsonData: responseData.data });
-
-                    } else {
-                        let error = {
-                            message: responseData.message || 'Login failed due to unknown error'
-                        };
-                        // console.log(responseData.errors);
-                        Swal.fire({
-                            position: "center",
-                            icon: "info",
-                            title: error.message,
-                            showConfirmButton: false,
-                            timer: 1500
-                          });
-                        this.setState({ error });
-                    }
-                } else {
+            
+            const respondUser = await this.getInfo(getUserNamePath); 
+            const respondPassword = await this.getInfo(getPasswordPath); 
+            const resName = await this.getInfo(getNamePath); 
+            const resEmail = await this.getInfo(getEmailPath); 
+            const role = await this.getInfo(getRolePath);
+            if (respondUser) {
+                if (respondPassword === password){
+                    this.setWithExpiry('name', resName, 300 * 60 * 1000)
+                    if(role) this.setWithExpiry('role', role, 300 * 60 * 1000)
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Login Success",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    this.setState({ user:true });
+                }
+                else {
                     let error = {
-                        message: responseData.errors && responseData.errors.Email ? responseData.errors.Email : responseData.errors.Password ?responseData.errors.Password :  'Login failed due to unknown error'
+                        message: "Mật khẩu không chính xác, vui lòng thử lại"
                     };
                     Swal.fire({
                         position: "center",
@@ -119,13 +107,31 @@ class Login extends Component {
                         title: error.message,
                         showConfirmButton: false,
                         timer: 1500
-                      });
+                    });
                     this.setState({ error });
+                }
+
+
+                
+
+                } 
+            else {
+                let error = {
+                    message: "Người dùng không tồn tại"
+                };
+                Swal.fire({
+                    position: "center",
+                    icon: "info",
+                    title: error.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                this.setState({ error });
                 }
             } catch (error) {
                 // console.error('Error logging in:', error);
                 let errorMessage = {
-                    message: 'Error logging in: ' + error.message
+                    message: 'Lỗi đăng nhập: ' + error.message
                 };
                 Swal.fire({
                     position: "center",
@@ -137,6 +143,20 @@ class Login extends Component {
                 this.setState({ error: errorMessage });
             }
     };
+    getInfo = async (path)=>{
+        // begin getcontentFromFirebase
+        try {
+            const data = await getContentFromFireBase(path);
+            if (data !== null) {
+                console.log("data return:", data);
+                return data; // Trả về dữ liệu
+            }
+        } catch (error) {
+            console.error("Có lỗi xảy ra:", error);
+            throw error; // Ném lỗi để handleSubmit có thể bắt lỗi này
+        }
+    // end getcontentFromFirebase
+    }
 
     render() {
         let { user, error,showPassword } = this.state;
@@ -145,20 +165,20 @@ class Login extends Component {
             <div className="login-container">
             {error && <p>{error.message}</p>}
             {user && (
-          <Navigate to="/home" replace={true} />
+          <Navigate to="/" replace={true} />
         )}
-            <img src={imgRen} alt="" className="img-fluid header-logo-img" />
+            {/* <img src={imgRen} alt="" className="img-fluid header-logo-img" /> */}
                 <div className="circle circle-one" />
                 <div className="form-container">
                     <img
-                        src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png"
+                        src={imgPhat}
                         alt="illustration"
                         className="illustration"
                     />
-                    <h1 className="opacity">阿彌陀佛</h1>
+                    <h1 className="opacity">Luyện dịch</h1>
                     <form onSubmit={this.handleSubmit}>
                         <div>
-                            <input type="text" name="username" placeholder="Tên đăng nhập" />
+                            <input type="text" name="username" placeholder="Email" />
                         </div>
                         <div className='input-password'>
                             <input 
@@ -190,7 +210,7 @@ class Login extends Component {
             </div>
             <div className="theme-btn-container" />
             <DisplayThemeButtons />
-            
+            <audio ref={ref => this.audioRef = ref} src={mp3File} />
         </section>
         );
     }

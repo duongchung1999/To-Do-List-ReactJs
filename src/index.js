@@ -8,6 +8,8 @@ import StickyNote from './Component/StickyNote/StickyNote';
 import ViewerWebsite from './function/viewWebsite/ViewerWebsite';
 import ViewerYoutube from './Component/viewerYoutube/ViewerYoutube';
 import Login from './Component/login/Login';
+import Register from './Component/register/Register';
+import PageForm from './Component/PageForm/PageForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/page",
+    element: <PageForm />,
   },
  
 ]);

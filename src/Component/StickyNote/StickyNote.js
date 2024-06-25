@@ -8,6 +8,7 @@ import { CreateNewSection } from '../../function/Firebase';
 import { DeleteSection } from '../../function/Firebase';
 import { ShowNewFile } from '../../function/Firebase';
 import { SaveDataToFirebase } from '../../function/Firebase';
+import NavHeader from '../Header/NavHeader';
 
 class StickyNote extends Component {
     constructor(props) {
