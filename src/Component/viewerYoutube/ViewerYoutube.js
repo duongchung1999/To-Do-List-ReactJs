@@ -3,6 +3,9 @@ import Header from '../Header/Header';
 import { Button } from 'react-bootstrap';
 import { getContentFromFireBase } from '../../function/Firebase';
 import YoutubeShow from '../../function/youtubeShow/YoutubeShow';
+import PageForm from '../PageForm/PageForm';
+import { NavLink } from 'react-router-dom';
+import ItemCard from '../../function/ItemCard/ItemCard';
 
 class ViewerYoutube extends Component {
     constructor(props) {
@@ -107,45 +110,47 @@ class ViewerYoutube extends Component {
 
     render() {
         return (
-            <div className='App'>
-            <Header isMenuOnClick= {this.state.isMenuOnClick}/>
-            <div className='content'>
-                <div className='btnMenuSide'>
-                    <Button variant="danger" onClick={this.menuOnClick}>
-                                <i class="fa-solid fa-bars" ></i>
-                                </Button>
-                    <h2>{this.props.title}</h2>
-                </div>
-               <div className='viewerYoutube row' style={{width:'100%'}}>
-                 {this.showLink()}
-               </div>
-            
-                <div className='openLink_container'>
-                    <div className="form-group">
-                        <label htmlFor="" />
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="youtubeLinkInput"
-                            id="youtubeLinkInput"
-                            aria-describedby="helpId"
-                            placeholder="Youtube Link"
-                            value={this.state.inputLink}
-                            onChange={this.handleInputChange}
+            <PageForm body={
+                <>
+                    <div className='viewerYoutube row' style={{width:'100%'}}>
+                     {this.showLink()}
+                   </div>
+                
+                    <div className='openLink_container'>
+                        <div className="form-group">
+                            <label htmlFor="" />
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="youtubeLinkInput"
+                                id="youtubeLinkInput"
+                                aria-describedby="helpId"
+                                placeholder="Youtube Link"
+                                value={this.state.inputLink}
+                                onChange={this.handleInputChange}
+                            />
+                            <Button variant="info" onClick={this.openVideo}>
+                                Open
+                                <i class="fa-brands fa-youtube"></i>
+                            </Button>
+                        </div>
+                        <YoutubeShow link={this.state.openLink?this.state.openLink:"null"}
+                        height={this.state.youtubeHeight ? `${this.state.youtubeHeight}` : "100%"}
                         />
-                        <Button variant="info" onClick={this.openVideo}>
-                            Open
-                            <i class="fa-brands fa-youtube"></i>
-                        </Button>
                     </div>
-                    <YoutubeShow link={this.state.openLink?this.state.openLink:"null"}
-                    height={this.state.youtubeHeight ? `${this.state.youtubeHeight}` : "100%"}
-                    />
-                </div>
-               
-            </div>
-            
-        </div>
+                    <div>
+                            <div className='row row-cols-6 row-cols-xxxxxl-5 row-cols-xxxxl-4 row-cols-xl-3 row-cols-lg-2 gy-6 gx-xxl-2 gx-xl-3 gx-lg-2'>
+                                <ItemCard 
+                                link="/" 
+                                title="Item Card" 
+                                titleDescription="Description"
+                                img="https://mayphiendich.com/uploads/images/vi/news/chu-thien-trong-tieng-han-la-gi.jpg"
+                                alt="IMG Link"
+
+                                />
+                            </div>
+                        </div>
+                </>}/>
         );
     }
 }

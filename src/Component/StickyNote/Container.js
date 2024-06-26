@@ -33,9 +33,9 @@ class Container extends Component {
             <div className="content js-content">
                     <div id="header-select">
                         <h1>
-                            <Button variant="danger" onClick={this.props.menuOnClick}>
+                            {/* <Button variant="danger" onClick={this.props.menuOnClick}>
                             <i class="fa-solid fa-bars" ></i>
-                            </Button>
+                            </Button> */}
                         
                         {/* <i className="menu-icon ti-angle-double-left" />
                         <i className="menu-icon ti-angle-double-right" /> */}

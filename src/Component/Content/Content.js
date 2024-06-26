@@ -129,9 +129,9 @@ class Content extends Component {
         return (
             <div id="content">
                 <div className='btnMenuSide'>
-                <Button variant="danger" onClick={this.props.menuOnClick}>
+                {/* <Button variant="danger" onClick={this.props.menuOnClick}>
                             <i class="fa-solid fa-bars" ></i>
-                            </Button>
+                            </Button> */}
                 <h2>Convert Text</h2>
                 </div>
                 

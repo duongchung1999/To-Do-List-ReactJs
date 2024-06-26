@@ -10,6 +10,15 @@
 
  // Your web app's Firebase configuration
  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+ const ApiKey = process.env.apiKey;
+ const authDomain = process.env.authDomain;
+ const databaseURL = process.env.databaseURL;
+ const projectId = process.env.projectId;
+ const storageBucket = process.env.storageBucket;
+ const messagingSenderId = process.env.messagingSenderId;
+ const appId = process.env.appId;
+ const measurementId = process.env.measurementId;
+ 
  const firebaseConfig = {
    apiKey: "AIzaSyD9IyIValBX6xooTZ3wsBPfKsyYvNwAWik",
    authDomain: "dichchuhan-55a4d.firebaseapp.com",
@@ -217,10 +226,7 @@ function getConvertText(){
     var convertPath = "/users/user1/kecheng/convert/convert"
     getContentFromFireBase(convertPath)
     .then((data) => {
-        // if (data !== null) {
-        //     return data
-        // }
-        console.log(data);
+        
         return data
     })
     .catch((error) => {
@@ -235,8 +241,7 @@ function loadInputFile(selectedFile) {
     var translatePath =   `/users/user1/contents/${selectedFile}/${selectedFile}`
     var fileList = document.getElementById('fileList');
     fileList.value = selectedFile;
-    console.log(kechengPath);
-    console.log( getContentFromFireBase(translatePath));
+    
     getContentFromFireBase(translatePath)
         .then((data) => {
             if (data !== null) {
@@ -279,21 +284,14 @@ function getContentFromFireBase(path){
     });
    
 }  
-//Thêm sự kiện khi change fileList
-// document.getElementById('fileList').addEventListener('change', loadSelectedFile);
 
-// End SelectFile
-
-
-// Load FileList
-// Đường dẫn đến node bạn muốn đọc
 const pathToContents = 'users/user1/contents';
 
 // Hàm để đọc dữ liệu từ Firebase
 async function loadFileList() {
     const contentsRef = ref(db, pathToContents);
     const contentsSnapshot = await get(contentsRef);
-
+    console.log("ApiKey"+ApiKey);
     if (contentsSnapshot.exists()) {
         const fileList = Object.keys(contentsSnapshot.val());
         updateFileListDropdown(fileList);

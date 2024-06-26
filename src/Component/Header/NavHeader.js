@@ -68,7 +68,7 @@ class NavHeader extends Component {
                         onClick={this.toggleDropdown} // Gọi hàm toggleDropdown khi click
                         aria-expanded={isDropdownOpen ? "true" : "false"} // Đặt aria-expanded tương ứng với trạng thái của dropdown
                     >
-                        <i className="fas fa-user fa-fw" />
+                        {userName?item.value:null } <i className="fas fa-user fa-fw" />
                     </a>
                     <ul
                         className={`dropdown-menu ${isDropdownOpen ? 'dropdown-menu-end show' : ''}`} 
@@ -77,14 +77,14 @@ class NavHeader extends Component {
                         <li>
                         <NavLink to="/changePassword" className="dropdown-item">
                             <i class="fa-solid fa-gears nav-icon"></i>
-                            Modify Password
+                            Đổi mật khẩu
                             </NavLink>
                         </li>
                         <li>
                         <a className="dropdown-item" onClick={this.loginFunction}>
                         
                         <i class="fa-solid fa-arrow-right-to-bracket nav-icon"></i>
-                            Login
+                            Đăng nhập
                         </a>
                         </li>
                         <li>
@@ -93,7 +93,7 @@ class NavHeader extends Component {
                         <li>
                         <a className="dropdown-item" onClick={this.LogoutFunction}>
                         <i class="fa-solid fa-arrow-right-from-bracket nav-icon"></i>
-                            Logout {userName?" from "+item.value:null } 
+                        Đăng xuất {userName?" "+item.value:null } 
                             
                         </a>
                         </li>

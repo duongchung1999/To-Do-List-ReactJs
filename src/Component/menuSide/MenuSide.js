@@ -26,9 +26,9 @@ class MenuSide extends Component {
         if(this.state.viewMenuSide2nd){
             return(
                 <div className='menuSide-2nd'>
-                    <NavItem path="/cabinet" itemName="Cabinet" icon = {<i class="nav-icon fa-solid fa-boxes-stacked"></i>}/>
-                    <NavItem path="/itAsset" itemName="Asset" icon = {<i class="nav-icon fa-solid fa-dolly"></i>}/>
-                    <NavItem path="/cabinetAsset" itemName="Cabinet Asset" icon = {<i class="nav-icon fa-solid fa-boxes-packing"></i>}/>
+                    <NavItem path="/convertText" itemName="Chuyển đổi text" icon = {<i class="nav-icon fa-solid fa-font"></i>}/>
+                    <NavItem path="/tudiendich" itemName="Từ điển dịch" icon = {<i class="nav-icon fa-solid fa-shuffle"></i>}/>
+                    <NavItem path="/pdfGiaotrinh" itemName="Giáo trình PDF" icon = {<i class="nav-icon fa-solid fa-file-pdf"></i>}/>
                 </div>
             )
         }
@@ -46,29 +46,29 @@ class MenuSide extends Component {
                 <div className='menuSide sb-sidenav'>
                     <div className='menuSide-item'>
                         <ul className="menuSide-nav">
-                            <NavItem path="/home" itemName="User Information" icon = {<i className="nav-icon fa-solid fa-users"></i>}/>
-                            <NavItem path="/computer" itemName="Computer Information" icon = {<i className="nav-icon fa-solid fa-network-wired"></i>}/>
-                            <NavItem path="/printer" itemName="Printer IP Address" icon = {<i className="nav-icon fa-solid fa-print"></i>}/>
-                            <NavItem path="/phone" itemName="Phone Numbers" icon = {<i className="nav-icon fa-solid fa-phone"></i>}/>
-                            <NavItem path="/document" itemName="Documents" icon = {<i className="nav-icon fa-regular fa-folder-open"></i>}/>
+                            <NavItem path="/" itemName="Home" icon = {<i className="nav-icon fa-solid fa-house"></i>}/>
+                            <NavItem path="/nhidonghocphat" itemName="Nhi đồng học Phật" icon = {<i className="nav-icon fa-solid fa-earth-americas"></i>}/>
+                            <NavItem path="/hanzi" itemName="Từ điển Hanzi" icon = {<i className="nav-icon fa-solid fa-language"></i>}/>
+                            <NavItem path="/youtube" itemName="Video" icon = {<i className="nav-icon fa-brands fa-youtube"></i>}/>
+                            <NavItem path="/jiaocheng" itemName="TKPS Gia Ngôn Lục" icon = {<i class="nav-icon fa-solid fa-book-journal-whills"></i>}/>
                             
                             <li className='menuSide-it-asset' onClick={this.viewItem}>
                                 <a className='nav-link'>
                                     <i class="nav-icon fa-solid fa-toolbox"></i>
-                                    IT Asset
+                                    Cập nhật bài học
                                     {this.renderItemAsset()}
                                     
                                     
                                 </a>
                             </li>
-                            <NavItem path="/history" itemName="History" icon = {<i className="nav-icon fa-solid fa-clock-rotate-left"></i>}/>
+                            {/* <NavItem path="/history" itemName="History" icon = {<i className="nav-icon fa-solid fa-clock-rotate-left"></i>}/> */}
                             
                         </ul>
                         
                     </div>
 
                     <div className='menuSide-footer'>
-                        <div className="small">Logged in as</div>
+                        <div className="small">Đăng nhập với</div>
                         <i className="fa-solid fa-diagram-project"></i>
                         <span className="ml-2">{userName?item.value:"Guest"}</span>
                     </div>

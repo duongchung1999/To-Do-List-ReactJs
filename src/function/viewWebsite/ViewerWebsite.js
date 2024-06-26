@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../Component/Header/Header';
 import { Button } from 'react-bootstrap';
+import PageForm from '../../Component/PageForm/PageForm';
 
 class ViewerWebsite extends Component {
     constructor(props) {
@@ -17,15 +18,9 @@ class ViewerWebsite extends Component {
     }
     render() {
         return (
-            <div className='App'>
-                <Header isMenuOnClick= {this.state.isMenuOnClick}/>
-                <div className='content'>
-                    <div className='btnMenuSide'>
-                        <Button variant="danger" onClick={this.menuOnClick}>
-                                    <i class="fa-solid fa-bars" ></i>
-                                    </Button>
-                        <h2>{this.props.title}</h2>
-                    </div>
+            
+            <PageForm body={
+                <>
                     <iframe 
                         src={this.props.path}
                         width="100%" 
@@ -33,9 +28,7 @@ class ViewerWebsite extends Component {
                         style={{border: "none"}}
                         title="Hanzii"
                     ></iframe>
-                </div>
-                
-            </div>
+                </>}/>
             
         );
     }

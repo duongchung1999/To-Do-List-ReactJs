@@ -9,6 +9,7 @@ import { DeleteSection } from '../../function/Firebase';
 import { ShowNewFile } from '../../function/Firebase';
 import { SaveDataToFirebase } from '../../function/Firebase';
 import NavHeader from '../Header/NavHeader';
+import PageForm from '../PageForm/PageForm';
 
 class StickyNote extends Component {
     constructor(props) {
@@ -58,15 +59,12 @@ class StickyNote extends Component {
     }
     render() {
         return (
-            <div className='App'>
-                <Header isMenuOnClick= {this.state.isMenuOnClick}/>
+            <PageForm body={
+            <>
                 <Container addSection={this.addSection} Delete={Delete} menuOnClick={this.menuOnClick}/>
                 <AddSection />
                 <Confirm/>
-                
-
-                
-            </div>
+            </>}/>
         );
     }
 }

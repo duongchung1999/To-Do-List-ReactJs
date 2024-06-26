@@ -3,6 +3,7 @@ import './App.css';
 import Header from './Component/Header/Header';
 import Content from './Component/Content/Content';
 import React, { Component } from 'react';
+import PageForm from './Component/PageForm/PageForm';
 class App  extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +19,10 @@ class App  extends Component {
 }
 render(){
   return (
-    <div className="App">
-      <Header isMenuOnClick= {this.state.isMenuOnClick}/>
-      <Content menuOnClick={this.menuOnClick}/>
-    </div>
+    <PageForm body={
+      <>
+          <Content menuOnClick={this.menuOnClick}/>
+      </>}/>
   );
 }
   

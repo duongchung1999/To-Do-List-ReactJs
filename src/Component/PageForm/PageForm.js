@@ -30,9 +30,7 @@ class PageForm extends Component  {
             {this.state.isMenuSideVisible && <MenuSide />}
             <div className='table-container col' id='table-container'>
               <div className='table-container-header'>
-                <Container/>
-                <AddSection />
-                <Confirm/>
+                {this.props.body}
                 
 
                 
