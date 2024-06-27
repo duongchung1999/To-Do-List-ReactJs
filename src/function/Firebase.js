@@ -34,8 +34,6 @@
  const app = initializeApp(firebaseConfig);
  // const analytics = getAnalytics(app);
  const db = getDatabase(app);
- const pathToNode = 'users/user1/contents/C1B40'
- const pathTokecheng = 'users/user1/kecheng/C1B40'
  const dataRef = ref(db, '/users/user1/contents/C1B40/C1B40');
  // Đọc dữ liệu từ Firebase
  get(dataRef).then((snapshot) => {
@@ -283,7 +281,41 @@ function getContentFromFireBase(path){
         });
     });
    
-}  
+}
+
+async function getValueFromPath(path) {
+    var dataRef = ref(db, path);
+    try {
+        var snapshot = await get(dataRef);
+        if (snapshot.exists()) {
+            return snapshot.val();
+        } else {
+            console.log("Không có dữ liệu tại đường dẫn này.");
+            return null;
+        }
+    } catch (error) {
+        console.error("Lỗi khi đọc dữ liệu:", error);
+        return null;
+    }
+}
+function getKeyValueFromFireBase(path){
+    return new Promise((resolve, reject) => {
+        var dataRef = ref(db, path);
+        get(dataRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                var data = snapshot.val();
+                var formattedData = Object.entries(data).map(([key, value]) => ({ key, value }));
+                resolve(formattedData);
+            } else {
+                console.log("Không có dữ liệu tại đường dẫn này.");
+                resolve(null);
+            }
+        }).catch((error) => {
+            console.error("Lỗi khi đọc dữ liệu:", error);
+            reject(error);
+        });
+    });
+}
 
 const pathToContents = 'users/user1/contents';
 
@@ -348,6 +380,8 @@ export {getConvertText};
 export {getContentFromFireBase};
 export {AddDataToFireBase}
 export {AddDataToFireBaseNoKey}
+export {getKeyValueFromFireBase}
+export {getValueFromPath}
 
 
 
