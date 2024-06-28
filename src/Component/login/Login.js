@@ -86,8 +86,12 @@ class Login extends Component {
             const role = await this.getInfo(getRolePath);
             if (respondUser) {
                 if (respondPassword === password){
-                    this.setWithExpiry('name', resName, 300 * 60 * 1000)
-                    if(role) this.setWithExpiry('role', role, 300 * 60 * 1000)
+                    localStorage.setItem('user',respondUser);
+                    localStorage.setItem('name',resName);
+                    localStorage.setItem('email',resEmail);
+                    if(role) localStorage.setItem('role',role);
+                    // this.setWithExpiry('name', resName, 300 * 60 * 1000)
+                    // if(role) this.setWithExpiry('role', role, 300 * 60 * 1000)
                     Swal.fire({
                         position: "center",
                         icon: "success",

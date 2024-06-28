@@ -38,7 +38,7 @@ class MenuSide extends Component {
     render() {
         const { isMenuSideVisible } = this.props;
         var userName = localStorage.getItem("name");
-        const item = JSON.parse(userName)
+        // const item = JSON.parse(userName)
         // console.log(userName);
         return (
             <div className={isMenuSideVisible ? 'layoutContainer d-none d-md-inline-block' : 'layoutContainer d-none d-md-inline-block'}>
@@ -50,6 +50,7 @@ class MenuSide extends Component {
                             <NavItem path="/nhidonghocphat" itemName="Nhi đồng học Phật" icon = {<i className="nav-icon fa-solid fa-earth-americas"></i>}/>
                             <NavItem path="/hanzi" itemName="Từ điển Hanzi" icon = {<i className="nav-icon fa-solid fa-language"></i>}/>
                             <NavItem path="/youtube" itemName="Video" icon = {<i className="nav-icon fa-brands fa-youtube"></i>}/>
+                            <NavItem path="/dichthuat" itemName="Dịch Thuật" icon = {<i className="nav-icon fa-brands fa-youtube"></i>}/>
                             <NavItem path="/jiaocheng" itemName="TKPS Gia Ngôn Lục" icon = {<i class="nav-icon fa-solid fa-book-journal-whills"></i>}/>
                             
                             <li className='menuSide-it-asset' onClick={this.viewItem}>
@@ -70,7 +71,7 @@ class MenuSide extends Component {
                     <div className='menuSide-footer'>
                         <div className="small">Đăng nhập với</div>
                         <i className="fa-solid fa-diagram-project"></i>
-                        <span className="ml-2">{userName?item.value:"Guest"}</span>
+                        <span className="ml-2">{userName?userName:"Guest"}</span>
                     </div>
 
                     

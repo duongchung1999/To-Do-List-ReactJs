@@ -1,6 +1,4 @@
-import logo from './logo.svg';
 import './App.css';
-import Header from './Component/Header/Header';
 import Content from './Component/Content/Content';
 import React, { Component } from 'react';
 import PageForm from './Component/PageForm/PageForm';

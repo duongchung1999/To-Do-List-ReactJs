@@ -10,6 +10,9 @@ import ViewerYoutube from './Component/viewerYoutube/ViewerYoutube';
 import Login from './Component/login/Login';
 import Register from './Component/register/Register';
 import PageForm from './Component/PageForm/PageForm';
+import DichThuatList from './Component/DichThuatList/DichThuatList';
+import DichThuatDetails from './Component/DichThuatDetails/DichThuatDetails';
+import DichThuatHandle from './Component/DichThuatHandle/DichThuatHandle';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -56,6 +59,18 @@ const router = createBrowserRouter([
   {
     path: "/page",
     element: <PageForm />,
+  },
+  {
+    path: "/dichthuat",
+    element: <DichThuatList />,
+  },
+  {
+    path: "/dichthuatDetails/:slug/:id",
+    element: <DichThuatDetails />,
+  },
+  {
+    path: "/dichthuat/dichthuatHandle",
+    element: <DichThuatHandle />,
   },
  
 ]);

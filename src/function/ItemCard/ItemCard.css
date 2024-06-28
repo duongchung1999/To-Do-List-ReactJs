@@ -7,6 +7,7 @@
     overflow: hidden;
     background: #00000008;
     transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
 }
 
 .itemCard-title{

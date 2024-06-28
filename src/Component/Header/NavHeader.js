@@ -43,7 +43,7 @@ class NavHeader extends Component {
     render() {
         const { isDropdownOpen,logout } = this.state;
         var userName = localStorage.getItem("name");
-        const item = JSON.parse(userName)
+        // const item = JSON.parse(userName)
         
         return (
             
@@ -68,7 +68,7 @@ class NavHeader extends Component {
                         onClick={this.toggleDropdown} // Gọi hàm toggleDropdown khi click
                         aria-expanded={isDropdownOpen ? "true" : "false"} // Đặt aria-expanded tương ứng với trạng thái của dropdown
                     >
-                        {userName?item.value:null } <i className="fas fa-user fa-fw" />
+                        {userName?userName:null } <i className="fas fa-user fa-fw" />
                     </a>
                     <ul
                         className={`dropdown-menu ${isDropdownOpen ? 'dropdown-menu-end show' : ''}`} 
@@ -93,7 +93,7 @@ class NavHeader extends Component {
                         <li>
                         <a className="dropdown-item" onClick={this.LogoutFunction}>
                         <i class="fa-solid fa-arrow-right-from-bracket nav-icon"></i>
-                        Đăng xuất {userName?" "+item.value:null } 
+                        Đăng xuất {userName?" "+userName:null } 
                             
                         </a>
                         </li>
