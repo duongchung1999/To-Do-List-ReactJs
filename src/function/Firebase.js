@@ -10,25 +10,18 @@
 
  // Your web app's Firebase configuration
  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
- const ApiKey = process.env.apiKey;
- const authDomain = process.env.authDomain;
- const databaseURL = process.env.databaseURL;
- const projectId = process.env.projectId;
- const storageBucket = process.env.storageBucket;
- const messagingSenderId = process.env.messagingSenderId;
- const appId = process.env.appId;
- const measurementId = process.env.measurementId;
- 
- const firebaseConfig = {
-   apiKey: "AIzaSyD9IyIValBX6xooTZ3wsBPfKsyYvNwAWik",
-   authDomain: "dichchuhan-55a4d.firebaseapp.com",
-   databaseURL: "https://dichchuhan-55a4d-default-rtdb.firebaseio.com",
-   projectId: "dichchuhan-55a4d",
-   storageBucket: "dichchuhan-55a4d.appspot.com",
-   messagingSenderId: "589658521880",
-   appId: "1:589658521880:web:65694d6b4f17f4ca6b1e6d",
-   measurementId: "G-G02KSBMR52"
- };
+
+
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  };
 
  // Initialize Firebase
  const app = initializeApp(firebaseConfig);
@@ -323,7 +316,7 @@ const pathToContents = 'users/user1/contents';
 async function loadFileList() {
     const contentsRef = ref(db, pathToContents);
     const contentsSnapshot = await get(contentsRef);
-    console.log("ApiKey"+ApiKey);
+    // console.log("ApiKey"+ApiKey);
     if (contentsSnapshot.exists()) {
         const fileList = Object.keys(contentsSnapshot.val());
         updateFileListDropdown(fileList);

@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 function ItemCard (props){
     return(
-        <div className='col-2' style={{marginTop:"20px"}} >
+        <div className='col-6' style={{marginTop:"20px"}} >
             <div className='itemCard-container'onClick={props.cardClick} onMouseEnter={props.cardClick}>
                 <NavLink className="itemCard-title" to={props.link}  target="_self" onClick={props.cardClick}>
                     <div className='itemCard-img-des'>

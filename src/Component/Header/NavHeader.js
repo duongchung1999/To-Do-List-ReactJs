@@ -52,7 +52,7 @@ class NavHeader extends Component {
                <div style={{display:'flex',flexDirection:'row'}}>
                 <a className="navbar-brand header-logo" href="#!">
                     {/* <i class="fa-solid fa-tower-broadcast"></i> */}
-                    <span className="ml-2 header-logo-span"><h1>學習</h1></span>
+                    <span className="ml-2 header-logo-span"><h1>Dịch Thuật</h1></span>
                     </a>
                     {/* Sidebar Toggle*/}
                     <BtnLink toggleMenuSideVisibility={this.toggleMenuSideVisibility} />

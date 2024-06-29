@@ -28,36 +28,39 @@ const DichThuatDetails = () => {
         var dichthuatPath = `/users/dichthuat/${dichThuatName}/listBaihoc`;
         var dichthuats = await getKeyValueFromFireBase(dichthuatPath);
         
-        setDichthuats(dichthuats);
+        if(dichthuats){
+            setDichthuats(dichthuats);
 
-        const webLinks = {};
-        const tieudeTiengTrungs = {};
-        const authors = {};
-        const youtubeLinkToGetImgs = {};
-        const imgAuthors = {};
-        const ids = {};
-       
-        for (let dichthuat of dichthuats) {
-            console.log(`${dichthuatPath}/${dichthuat.key}/link`);
-            youtubeLinkToGetImgs[dichthuat.key] = await getValueFromPath(`${dichthuatPath}/${dichthuat.key}/link`);
-            // webLinks[dichthuat.key] = await getValueFromPath(`${dichthuatPath}/${dichthuat.key}/link`);
-            tieudeTiengTrungs[dichthuat.key] = await getValueFromPath(`${dichthuatPath}/${dichthuat.key}/tieudeTiengTrung`);
-            authors[dichthuat.key] = await getValueFromPath(`/users/dichthuat/${dichThuatName}/author`);
-            imgAuthors[dichthuat.key] = await getValueFromPath(`/users/dichthuat/${dichThuatName}/imgAuthor`);
-            if (youtubeLinkToGetImgs[dichthuat.key]) {
-                ids[dichthuat.key] = getYoutubeId(youtubeLinkToGetImgs[dichthuat.key]);
+            const webLinks = {};
+            const tieudeTiengTrungs = {};
+            const authors = {};
+            const youtubeLinkToGetImgs = {};
+            const imgAuthors = {};
+            const ids = {};
+           
+            for (let dichthuat of dichthuats) {
+                console.log(`${dichthuatPath}/${dichthuat.key}/link`);
+                youtubeLinkToGetImgs[dichthuat.key] = await getValueFromPath(`${dichthuatPath}/${dichthuat.key}/link`);
+                // webLinks[dichthuat.key] = await getValueFromPath(`${dichthuatPath}/${dichthuat.key}/link`);
+                tieudeTiengTrungs[dichthuat.key] = await getValueFromPath(`${dichthuatPath}/${dichthuat.key}/tieudeTiengTrung`);
+                authors[dichthuat.key] = await getValueFromPath(`/users/dichthuat/${dichThuatName}/author`);
+                imgAuthors[dichthuat.key] = await getValueFromPath(`/users/dichthuat/${dichThuatName}/imgAuthor`);
+                if (youtubeLinkToGetImgs[dichthuat.key]) {
+                    ids[dichthuat.key] = getYoutubeId(youtubeLinkToGetImgs[dichthuat.key]);
+                }
             }
+    
+            setTieudeTiengTrungs(tieudeTiengTrungs);
+            setAuthors(authors);
+            setImgAuthors(imgAuthors);
+            setYoutubeLinkToGetImgs(youtubeLinkToGetImgs);
+            setIds(ids);
         }
-
-        setTieudeTiengTrungs(tieudeTiengTrungs);
-        setAuthors(authors);
-        setImgAuthors(imgAuthors);
-        setYoutubeLinkToGetImgs(youtubeLinkToGetImgs);
-        setIds(ids);
+        
     }
 
     const showDichThuat = () => {
-        if (dichthuats.length > 0) {
+        if (dichthuats) {
             return dichthuats.map((dichthuat, index) => {
                 const tieudeTiengTrung = tieudeTiengTrungs[dichthuat.key];
                 const author = authors[dichthuat.key];
@@ -94,7 +97,13 @@ const DichThuatDetails = () => {
         <PageForm 
             body={
                 <div>
-                    <div className='row row-cols-6 row-cols-xxxxxl-5 row-cols-xxxxl-4 row-cols-xl-3 row-cols-lg-2 gy-6 gx-xxl-2 gx-xl-3 gx-lg-2'>
+                    <NavLink to="/dichthuat/baidichHandle">
+                        <Button variant="info" >
+                                    Edit
+                                    <i className="fa-solid fa-calendar-plus"></i>
+                        </Button>
+                    </NavLink>
+                    <div className='dichthuat-container row row-cols-6 row-cols-xxxxxl-5 row-cols-xxxxl-4 row-cols-xl-3 row-cols-lg-2 gy-6 gx-xxl-2 gx-xl-3 gx-lg-2'>
                         {showDichThuat()}
                     </div>
                 </div>
