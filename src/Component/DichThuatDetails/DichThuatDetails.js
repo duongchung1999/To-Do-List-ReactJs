@@ -59,6 +59,12 @@ const DichThuatDetails = () => {
         
     }
 
+    const setVideoName = (name,id,link)=>{
+        localStorage.setItem("video",name);
+        localStorage.setItem("videoId",id);
+        localStorage.setItem("link",link);
+    }
+
     const showDichThuat = () => {
         if (dichthuats) {
             return dichthuats.map((dichthuat, index) => {
@@ -71,12 +77,13 @@ const DichThuatDetails = () => {
                 console.log(author);
                 return (
                     <ItemCard
+                        cardClick={() => setVideoName(dichthuat.key,id,youtubeLinkToGetImg)}
                         webLink={youtubeLinkToGetImg}
                         tieudeTiengTrung={tieudeTiengTrung}
                         author={author}
                         imgAuthor={imgAuthor}
                         key={index}
-                        link="/"
+                        link="/dichthuat/dichthuatViewer"
                         title={dichthuat.key}
                         titleDescription="Description"
                         img={id ? `https://img.youtube.com/vi/${id}/sddefault.jpg` : null}

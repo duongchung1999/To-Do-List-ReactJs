@@ -14,6 +14,7 @@ import DichThuatList from './Component/DichThuatList/DichThuatList';
 import DichThuatDetails from './Component/DichThuatDetails/DichThuatDetails';
 import DichThuatHandle from './Component/DichThuatHandle/DichThuatHandle';
 import BaidichHandle from './Component/baidichHandle/BaidichHandle';
+import DichthuatViewer from './Component/DichthuatViewer/DichthuatViewer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
   {
     path: "/dichthuat/baidichHandle",
     element: <BaidichHandle />,
+  },
+  {
+    path: "/dichthuat/dichthuatViewer",
+    element: <DichthuatViewer />,
   },
  
 ]);

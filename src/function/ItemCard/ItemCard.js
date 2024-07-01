@@ -12,6 +12,7 @@ function ItemCard (props){
                         {/* <h2>{props.title}</h2>
                         <h4>{props.titleDescription}</h4> */}
                     </div>
+                    
                     <img src={props.img} alt={props.imgAlt}/>
                 </NavLink>
                

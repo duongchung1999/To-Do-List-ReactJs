@@ -359,9 +359,9 @@ function updateFileListDropdown(fileList) {
 
 export { loadFileList };
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadFileList();
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//     loadFileList();
+// });
 // End Load FileList
 
 export { SaveDataToFirebase };

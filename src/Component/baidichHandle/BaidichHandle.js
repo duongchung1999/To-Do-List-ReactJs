@@ -66,7 +66,7 @@ class BaidichHandle extends Component {
         const { dichthuat,baidich, youtubeLink, webLink,
             tieudeTiengTrung, author, imgAuthor, id} = this.state;
 
-        const dichthuatPath = `/users/dichthuat/${dichthuat}/listbaihoc/${baidich}`
+        const dichthuatPath = `/users/dichthuat/${dichthuat}/listBaihoc/${baidich}`
 
         const youtubeLinkPath = `${dichthuatPath}/link`
         const tieudeTiengTrungPath = `${dichthuatPath}/tieudeTiengTrung`
