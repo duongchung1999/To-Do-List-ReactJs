@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { getValueFromPath } from '../../function/Firebase';
 import ItemCardYoutube from '../../function/ItemCardYoutube/ItemCardYoutube';
+import './DichthuatViewer.css'
 
 class DichthuatViewer extends Component {
     constructor(props) {
@@ -63,22 +64,36 @@ class DichthuatViewer extends Component {
         return (
             <PageForm
             body={
-                <div style={{display:'flex'}}>
-                    <div className='dichthuat-container row row-cols-6 row-cols-xxxxxl-5 row-cols-xxxxl-4 row-cols-xl-3 row-cols-lg-2 gy-6 gx-xxl-2 gx-xl-3 gx-lg-2'>
-                        <ItemCardYoutube
-                            videoLink = {this.state.embedLink?this.state.embedLink:null}
-                            webLink={this.state.webLink?this.state.webLink:null}
-                            tieudeTiengTrung={this.state.tieudeTiengTrung?this.state.tieudeTiengTrung:null}
-                            author={this.state.author?this.state.author:null}
-                            imgAuthor={this.state.imgAuthor?this.state.imgAuthor:null}
-                            title={this.state.baihoc?this.state.baihoc:null}
-                            />
+                <div>
+                    <div className='dichthuat-container row'>
+                        <div className='col-12 col-md-6 col-lg-6  col-xxl-2 gy-6 gx-2'>
+                            <ItemCardYoutube
+                                videoLink = {this.state.embedLink?this.state.embedLink:null}
+                                webLink={this.state.webLink?this.state.webLink:null}
+                                tieudeTiengTrung={this.state.tieudeTiengTrung?this.state.tieudeTiengTrung:null}
+                                author={this.state.author?this.state.author:null}
+                                imgAuthor={this.state.imgAuthor?this.state.imgAuthor:null}
+                                title={this.state.baihoc?this.state.baihoc:null}
+                                />
 
-                        <div className='baidich-Text-container col'>
-                            <textarea>
-                                12321312
-                            </textarea>
                         </div>
+
+                        <div className='col-12 col-md-6 col-lg-6 col-xxl-2 gy-6 gx-2'>
+                            <div className="card border-primary">
+                              <div className="card-body">
+                                <h4 className="card-title">Title</h4>
+                                <p>
+                                    Nhập Text 12312321312312312312321312312313123123123123123123123123123123123
+                                </p>
+
+                              </div>
+                            </div>
+                            
+                        </div>
+
+                       
+
+                       
                     </div>
                     
                 </div>

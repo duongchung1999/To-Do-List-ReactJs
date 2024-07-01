@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 class ItemCardYoutube extends Component {
     render() {
         return (
-            <div className='col-12' style={{marginTop:"20px"}} >
             <div className='itemCard-container'onClick={this.props.cardClick} onMouseEnter={this.props.cardClick}>
                 <div className="itemCard-title" >
                     <div className='itemCard-img-des'>
@@ -32,7 +31,6 @@ class ItemCardYoutube extends Component {
                     </div>
                 </div>
             </div>
-        </div>
         );
     }
 }
